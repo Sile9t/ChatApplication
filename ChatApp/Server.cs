@@ -8,17 +8,12 @@ namespace ChatApp
     public class Server<T>
     {
         Dictionary<string, T> clients = new ();
-        private readonly IServerMessageSource _messageSource;
-        private IPEndPoint _endPoint;
-        public Server()
-        {
-            _messageSource = new UdpServerMessageSource();
-            _endPoint = new IPEndPoint(IPAddress.Any, 0);
-        }
-        public Server(IServerMessageSource messageSource)
+        private readonly IServerMessageSource<T> _messageSource;
+        private T _endPoint;
+        public Server(IServerMessageSource<T> messageSource)
         {
             _messageSource = messageSource;
-            _endPoint = new IPEndPoint(IPAddress.Any, 0);
+            _endPoint = _messageSource.CreateEndPoint();
         }
         async Task ProcessMessage(NetMessage message)
         {
@@ -50,7 +45,7 @@ namespace ChatApp
         }
         private async Task Reply(NetMessage message)
         {
-            if (clients.TryGetValue(message.To, out IPEndPoint ep))
+            if (clients.TryGetValue(message.To, out T ep))
             {
                 int id = 0;
                 using (var context = new ChatContext())
