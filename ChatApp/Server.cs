@@ -5,9 +5,9 @@ using System.Net.Sockets;
 
 namespace ChatApp
 {
-    public class Server
+    public class Server<T>
     {
-        Dictionary<string, IPEndPoint> clients = new Dictionary<string, IPEndPoint>();
+        Dictionary<string, T> clients = new ();
         private readonly IServerMessageSource _messageSource;
         private IPEndPoint _endPoint;
         public Server()

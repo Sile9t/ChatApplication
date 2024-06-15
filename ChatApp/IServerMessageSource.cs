@@ -3,7 +3,7 @@ using System.Net;
 
 namespace ChatApp
 {
-    public interface IServerMessageSource<T> where T : IPEndPoint
+    public interface IServerMessageSource<T>
     {
         Task SendAsync(NetMessage msg, T endPoint);
         NetMessage Receive(ref T endPoint);

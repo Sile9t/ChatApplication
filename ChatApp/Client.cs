@@ -3,29 +3,27 @@ using System.Net;
 
 namespace ChatApp
 {
-    public class Client
+    public class Client<T>
     {
         private readonly string _name;
-        IClientMessageSource _messageSource;
-        IPEndPoint _endPoint;
+        IClientMessageSource<T> _messageSource;
+        T _endPoint;
         bool _work = true;
-        public Client(string name, string address, int port)
-        {
-            _name = name;
-            _messageSource = new UdpClientMessageSource();
-            _endPoint = new IPEndPoint(IPAddress.Parse(address), port);
-        }
-        public Client(string name, IClientMessageSource source, string address, int port)
+
+        public Client(string name, IClientMessageSource<T> source)
         {
             _name = name;
             _messageSource = source;
-            _endPoint = new IPEndPoint(IPAddress.Parse(address), port);
+            _endPoint = _messageSource.CreateEndPoint();
         }
+
         public async Task Start()
         {
             await Listen();
         }
+
         public void Stop() => _work = false;
+
         private async Task Listen()
         {
             Console.WriteLine("Client is waiting for message");
@@ -34,7 +32,6 @@ namespace ChatApp
                 try
                 {
                     var messageReceived = _messageSource.Receive(ref _endPoint);
-                    //Console.WriteLine(messageReceived);
                     Console.WriteLine($"Received message From '{messageReceived.From}':");
                     Console.WriteLine(messageReceived.Text);
                     await Confirm(messageReceived, _endPoint);
@@ -45,16 +42,17 @@ namespace ChatApp
                 }
             }
         }
-        async Task Confirm(NetMessage msg, IPEndPoint endPoint)
+
+        async Task Confirm(NetMessage msg, T endPoint)
         {
             msg.Command = Command.Confirmation;
             await _messageSource.SendAsync(msg, endPoint);
         }
+
         async Task Register(IPEndPoint endPoint)
         {
             var msg = new NetMessage("", Command.Register, _name, "");
             await _messageSource.SendAsync(msg, _endPoint);
         }
-        
     }
 }
