@@ -1,0 +1,12 @@
+C:\Projects\DotNet\Chat\ChatCommon\bin\Debug\net8.0\ChatCommon.deps.json
+C:\Projects\DotNet\Chat\ChatCommon\bin\Debug\net8.0\ChatCommon.dll
+C:\Projects\DotNet\Chat\ChatCommon\bin\Debug\net8.0\ChatCommon.pdb
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\ChatCommon.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\ChatCommon.AssemblyInfoInputs.cache
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\ChatCommon.AssemblyInfo.cs
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\ChatCommon.csproj.CoreCompileInputs.cache
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\ChatCommon.sourcelink.json
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\ChatCommon.dll
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\refint\ChatCommon.dll
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\ChatCommon.pdb
+C:\Projects\DotNet\Chat\ChatCommon\obj\Debug\net8.0\ref\ChatCommon.dll

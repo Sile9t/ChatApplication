@@ -4200,8 +4200,8 @@
     },
     "ChatCommon/1.0.0": {
       "type": "project",
-      "path": "../ChatApplication/ChatCommon.csproj",
-      "msbuildProject": "../ChatApplication/ChatCommon.csproj"
+      "path": "../ChatCommon/ChatCommon.csproj",
+      "msbuildProject": "../ChatCommon/ChatCommon.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4247,8 +4247,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Projects\\DotNet\\Chat\\ChatApplication\\ChatCommon.csproj": {
-              "projectPath": "C:\\Projects\\DotNet\\Chat\\ChatApplication\\ChatCommon.csproj"
+            "C:\\Projects\\DotNet\\Chat\\ChatCommon\\ChatCommon.csproj": {
+              "projectPath": "C:\\Projects\\DotNet\\Chat\\ChatCommon\\ChatCommon.csproj"
             }
           }
         }

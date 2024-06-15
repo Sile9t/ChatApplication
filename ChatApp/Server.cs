@@ -10,10 +10,16 @@ namespace ChatApp
         Dictionary<string, T> clients = new ();
         private readonly IServerMessageSource<T> _messageSource;
         private T _endPoint;
+        private bool _work;
         public Server(IServerMessageSource<T> messageSource)
         {
             _messageSource = messageSource;
             _endPoint = _messageSource.CreateEndPoint();
+        }
+        public async Task Start()
+        {
+            _work = true;
+            await Listen();
         }
         async Task ProcessMessage(NetMessage message)
         {
@@ -100,7 +106,6 @@ namespace ChatApp
                 }
             }
         }
-        bool _work = true;
         public void Stop()
         {
             _work = false;
