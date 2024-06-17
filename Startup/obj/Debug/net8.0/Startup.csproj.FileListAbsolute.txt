@@ -1,6 +1,3 @@
-C:\Projects\DotNet\Chat\Startup\bin\Debug\net8.0\ChatCommon.deps.json
-C:\Projects\DotNet\Chat\Startup\bin\Debug\net8.0\ChatCommon.runtimeconfig.json
-C:\Projects\DotNet\Chat\Startup\bin\Debug\net8.0\ChatCommon.exe
 C:\Projects\DotNet\Chat\Startup\bin\Debug\net8.0\Startup.exe
 C:\Projects\DotNet\Chat\Startup\bin\Debug\net8.0\Startup.deps.json
 C:\Projects\DotNet\Chat\Startup\bin\Debug\net8.0\Startup.runtimeconfig.json

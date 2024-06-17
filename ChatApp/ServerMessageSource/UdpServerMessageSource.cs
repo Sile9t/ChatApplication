@@ -3,14 +3,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace ChatApp
+namespace ChatApp.ServerMessageSource
 {
     public class UdpServerMessageSource : IServerMessageSource<IPEndPoint>
     {
         private readonly UdpClient _udpClient;
         public UdpServerMessageSource()
         {
-            _udpClient = new UdpClient(12345);
+            _udpClient = new UdpClient(12346);
         }
 
         public IPEndPoint CopyEndPoint(IPEndPoint endPoint)
@@ -20,7 +20,7 @@ namespace ChatApp
 
         public IPEndPoint CreateEndPoint()
         {
-            return new IPEndPoint(IPAddress.Any, 0);
+            return new IPEndPoint(IPAddress.Parse("127.0.0.1"), 12346);
         }
 
         public NetMessage Receive(ref IPEndPoint endPoint)
@@ -36,7 +36,7 @@ namespace ChatApp
             var text = msg.SerializeToJson();
             var buffer = Encoding.UTF8.GetBytes(text);
 
-            await _udpClient.SendAsync(buffer);
+            await _udpClient.SendAsync(buffer, buffer.Length, endPoint);
         }
     }
 }

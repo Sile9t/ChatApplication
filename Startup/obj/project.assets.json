@@ -1050,40 +1050,40 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "ChatDB": "1.0.0",
-          "Startup1": "1.0.0"
+          "ChatCommon": "1.0.0",
+          "ChatDB": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ChatApp.dll": {}
         },
         "runtime": {
           "bin/placeholder/ChatApp.dll": {}
+        }
+      },
+      "ChatCommon/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/ChatCommon.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ChatCommon.dll": {}
         }
       },
       "ChatDB/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "ChatCommon": "1.0.0",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.Proxies": "8.0.6",
-          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
-          "Startup1": "1.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6"
         },
         "compile": {
           "bin/placeholder/ChatDB.dll": {}
         },
         "runtime": {
           "bin/placeholder/ChatDB.dll": {}
-        }
-      },
-      "Startup1/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/Startup1.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Startup1.dll": {}
         }
       }
     }
@@ -2915,15 +2915,15 @@
       "path": "../ChatApp/ChatApp.csproj",
       "msbuildProject": "../ChatApp/ChatApp.csproj"
     },
+    "ChatCommon/1.0.0": {
+      "type": "project",
+      "path": "../ChatCommon/ChatCommon.csproj",
+      "msbuildProject": "../ChatCommon/ChatCommon.csproj"
+    },
     "ChatDB/1.0.0": {
       "type": "project",
       "path": "../ChatDB/ChatDB.csproj",
       "msbuildProject": "../ChatDB/ChatDB.csproj"
-    },
-    "Startup1/1.0.0": {
-      "type": "project",
-      "path": "../ChatApplication/Startup1.csproj",
-      "msbuildProject": "../ChatApplication/Startup1.csproj"
     }
   },
   "projectFileDependencyGroups": {

@@ -1,4 +1,5 @@
-﻿using ChatCommon;
+﻿using ChatApp.ServerMessageSource;
+using ChatCommon;
 using ChatDB;
 using System.Net;
 using System.Net.Sockets;
@@ -19,6 +20,7 @@ namespace ChatApp
         public async Task Start()
         {
             _work = true;
+
             await Listen();
         }
         async Task ProcessMessage(NetMessage message)
@@ -39,13 +41,21 @@ namespace ChatApp
         }
         private async Task Register(NetMessage message)
         {
-            Console.WriteLine($"Message register {message.From}");
+            Console.WriteLine($"User registered {message.From}");
             if (clients.TryAdd(message.From, _endPoint))
             {
                 using (var context = new ChatContext())
                 {
                     context.Users.Add(new User { FullName = message.From });
+
                     await context.SaveChangesAsync();
+
+                    message.To = message.From;
+                    message.From = "Server";
+                    message.Text = "You are registred";
+                    message.Command = Command.Confirmation;
+
+                    await _messageSource.SendAsync(message, _endPoint);
                 }
             }
         }
@@ -58,6 +68,7 @@ namespace ChatApp
                 {
                     var fromUser = context.Users.First(x => x.FullName == message.From);
                     var toUser = context.Users.First(x => x.FullName == message.To);
+
                     var msg = new Message
                     {
                         From = fromUser,
@@ -65,12 +76,15 @@ namespace ChatApp
                         IsSent = false,
                         Text = message.Text
                     };
+
                     context.Messages.Add(msg);
                     context.SaveChanges();
                     id = msg.Id;
                 }
                 message.Id = id;
+
                 await _messageSource.SendAsync(message, ep);
+
                 Console.WriteLine($"Message replied From : {message.From} To : {message.To}");
             }
             else Console.WriteLine("User not found");
@@ -84,6 +98,7 @@ namespace ChatApp
                 if (msg != null)
                 {
                     msg.IsSent = true;
+
                     await context.SaveChangesAsync();
                 }
             }
@@ -97,7 +112,9 @@ namespace ChatApp
                 try
                 {
                     var msg = _messageSource.Receive(ref _endPoint);
+
                     Console.WriteLine(msg);
+
                     await ProcessMessage(msg);
                 }
                 catch (Exception ex) 

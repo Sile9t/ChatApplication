@@ -1,4 +1,5 @@
-﻿using ChatCommon;
+﻿using ChatApp.ClientMessageSource;
+using ChatCommon;
 using System.Net;
 
 namespace ChatApp
@@ -14,17 +15,18 @@ namespace ChatApp
         {
             _name = name;
             _messageSource = source;
-            _endPoint = _messageSource.CreateEndPoint();
+            _endPoint = _messageSource.GetServer();
         }
 
         public async Task Start()
         {
-            await Listen();
+            new Thread( async _ => await SendAsync() ).Start();
+            new Thread( async _ => Listen() ).Start();
         }
 
         public void Stop() => _work = false;
 
-        private async Task Listen()
+        private async void Listen()
         {
             Console.WriteLine("Client is waiting for message");
             while (_work)
@@ -34,7 +36,34 @@ namespace ChatApp
                     var messageReceived = _messageSource.Receive(ref _endPoint);
                     Console.WriteLine($"Received message From '{messageReceived.From}':");
                     Console.WriteLine(messageReceived.Text);
+
                     await Confirm(messageReceived, _endPoint);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+
+        private async Task SendAsync()
+        {
+            Register(_endPoint);
+            while (_work)
+            {
+                try
+                {
+                    Console.WriteLine("Enter recipient name:");
+                    var recName = Console.ReadLine();
+
+                    Console.WriteLine("Enter message text:");
+                    var mesText = Console.ReadLine();
+
+                    var message = new NetMessage(mesText, Command.Message, _name, recName);
+
+                    await _messageSource.SendAsync(message, _endPoint);
+
+                    Console.WriteLine("Messsage sent");
                 }
                 catch (Exception ex)
                 {
@@ -46,13 +75,15 @@ namespace ChatApp
         async Task Confirm(NetMessage msg, T endPoint)
         {
             msg.Command = Command.Confirmation;
+
             await _messageSource.SendAsync(msg, endPoint);
         }
 
-        async Task Register(IPEndPoint endPoint)
+        async Task Register(T endPoint)
         {
             var msg = new NetMessage("", Command.Register, _name, "");
-            await _messageSource.SendAsync(msg, _endPoint);
+
+            await _messageSource.SendAsync(msg, endPoint);
         }
     }
 }
