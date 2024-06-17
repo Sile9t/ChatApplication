@@ -1,6 +1,4 @@
 ﻿using ChatApp;
-using ChatApp.ClientMessageSource;
-using ChatApp.ServerMessageSource;
 using System.Net;
 
 namespace ChatApplication
