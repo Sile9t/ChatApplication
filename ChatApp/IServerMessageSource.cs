@@ -1,7 +1,7 @@
 ﻿using ChatCommon;
 using System.Net;
 
-namespace ChatApp.ServerMessageSource
+namespace ChatApp
 {
     public interface IServerMessageSource<T>
     {

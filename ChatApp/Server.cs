@@ -1,8 +1,5 @@
-﻿using ChatApp.ServerMessageSource;
-using ChatCommon;
+﻿using ChatCommon;
 using ChatDB;
-using System.Net;
-using System.Net.Sockets;
 
 namespace ChatApp
 {

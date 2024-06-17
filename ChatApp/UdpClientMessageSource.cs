@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 
-namespace ChatApp.ClientMessageSource
+namespace ChatApp
 {
     public class UdpClientMessageSource : IClientMessageSource<IPEndPoint>
     {
