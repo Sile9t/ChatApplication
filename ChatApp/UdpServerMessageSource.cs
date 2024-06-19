@@ -20,7 +20,7 @@ namespace ChatApp
 
         public IPEndPoint CreateEndPoint()
         {
-            return new IPEndPoint(IPAddress.Parse("127.0.0.1"), 12346);
+            return new IPEndPoint(IPAddress.Parse("127.0.0.1"), 12345);
         }
 
         public NetMessage Receive(ref IPEndPoint endPoint)
@@ -37,6 +37,11 @@ namespace ChatApp
             var buffer = Encoding.UTF8.GetBytes(text);
 
             await _udpClient.SendAsync(buffer, buffer.Length, endPoint);
+        }
+
+        private string GetAddressString(IPEndPoint endPoint)
+        {
+            return $"@udp://{endPoint.Address}:{endPoint.Port}";
         }
     }
 }

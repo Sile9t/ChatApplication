@@ -28,9 +28,9 @@ namespace ChatApp
 
         public NetMessage Receive(ref IPEndPoint endPoint)
         {
-            using (var responce = new ResponseSocket(GetAddressString(endPoint)))
+            using (var response = new ResponseSocket(GetAddressString(endPoint)))
             {
-                var buffer = responce.ReceiveFrameBytes();
+                var buffer = response.ReceiveFrameBytes();
                 var text = Encoding.UTF8.GetString(buffer);
 
                 return NetMessage.DeserializeFromJson(text) ?? new NetMessage();
